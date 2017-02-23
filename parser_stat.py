@@ -1,4 +1,4 @@
-from endpoint_stat import Endpoint, Request
+from endpoint_stat import Endpoint, Request, Cache
 
 def to_int(list_of_str):
     return [int(i) for i in list_of_str.split(' ')]
@@ -14,6 +14,7 @@ class Parser:
         self.endpoints = []
         self.video_sizes = []
         self.requests = []
+        self.cache_list = []
 
     def parse(self):
         with open(self.filename, 'r') as input_f:
@@ -47,4 +48,16 @@ class Parser:
 
 
     def compute_cache(self):
-        pass
+        created_caches = []
+
+        for i in range(self.n_endpoints):
+            for cache_id in self.endpoints[i].latencies.keys():
+                if cache_id in created_caches:
+                    j = 0
+                    while self.cache_list[j].index != cache_id :
+                        j += 1
+                    self.cache_list[j].endpoints.append(self.endpoints[i])
+                else:
+                    self.cache_list.append(Cache(cache_id))
+                    created_caches.append(cache_id)
+                    self.cache_list[len(self.cache_list) - 1].endpoints.append(self.endpoints[i])

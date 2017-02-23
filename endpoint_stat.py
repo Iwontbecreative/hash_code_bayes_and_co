@@ -10,3 +10,9 @@ class Request:
         self.index = index
         self.video = video
         self.qty = qty
+
+class Cache:
+    def __init__(self, index):
+        self.index = index
+        self.nb_voisins = 0
+        self.endpoints = []
