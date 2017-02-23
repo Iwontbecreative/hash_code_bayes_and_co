@@ -12,7 +12,6 @@ class Parser:
         self.n_caches = 0
         self.cache_size = 0
         self.endpoints = []
-        self.requests = []
         self.video_sizes = []
 
     def parse(self):
@@ -32,11 +31,11 @@ class Parser:
                 for j in range(1, 1 + caches):
                     info = to_int(lines[i+j])
                     latencies[info[0]] = info[1]
-                self.endpoints.append(Endpoint(dc_latency, latencies))
+                self.endpoints.append(Endpoint(number_handled, dc_latency, latencies))
                 number_handled += 1
                 i += 1
 
             number_handled = 0
             for j in range(i, self.n_requests+i):
-                video, source, dest = to_int(lines[j])
-                self.requests.append(Request(video, source, dest))
+                video, source, qty = to_int(lines[j])
+                self.endpoints[source].requests.append(Request(number_handled, video, qty))

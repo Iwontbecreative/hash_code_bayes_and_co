@@ -1,10 +1,12 @@
 class Endpoint:
-    def __init__(self, dc_latency, latencies):
+    def __init__(self, index, dc_latency, latencies):
+        self.index = index
         self.dc_latency = dc_latency
         self.latencies = latencies
+        self.requests = []
 
 class Request:
-    def __init__(self, video, source, dest):
+    def __init__(self, index, video, qty):
+        self.index = index
         self.video = video
-        self.source = source
-        self.dest = dest
+        self.qty = qty
