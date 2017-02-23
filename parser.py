@@ -19,7 +19,7 @@ class Parser:
             lines = [line.strip('\n') for line in input_f.readlines()]
 # Global parameters.
             self.n_videos, self.n_endpoints, self.n_requests, self.n_caches, self.cache_size = to_int(lines[0])
-            self.vide_sizes = to_int(lines[1])
+            self.video_sizes = to_int(lines[1])
 # Endpoints
             number_handled = 0
             i = 2
