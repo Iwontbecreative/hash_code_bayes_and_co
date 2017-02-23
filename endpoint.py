@@ -6,7 +6,18 @@ class Endpoint:
         self.requests = []
 
 class Request:
-    def __init__(self, index, video, qty):
+    def __init__(self, index, source, video, qty):
         self.index = index
+        self.source = source
         self.video = video
         self.qty = qty
+
+class Video:
+    def __init__(self, index):
+        self.index = index
+        self.requests = []
+
+    def get_num_requests(self):
+        pass
+
+

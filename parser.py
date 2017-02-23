@@ -1,4 +1,4 @@
-from endpoint import Endpoint, Request
+from endpoint import Endpoint, Request, Video
 
 def to_int(list_of_str):
     return [int(i) for i in list_of_str.split(' ')]
@@ -13,6 +13,7 @@ class Parser:
         self.cache_size = 0
         self.endpoints = []
         self.video_sizes = []
+        self.videos = []
 
     def parse(self):
         with open(self.filename, 'r') as input_f:
@@ -20,6 +21,7 @@ class Parser:
 # Global parameters.
             self.n_videos, self.n_endpoints, self.n_requests, self.n_caches, self.cache_size = to_int(lines[0])
             self.video_sizes = to_int(lines[1])
+            self.videos = [Video(i) for i in range(self.n_videos)]
 # Endpoints
             number_handled = 0
             i = 2
@@ -38,4 +40,6 @@ class Parser:
             number_handled = 0
             for j in range(i, self.n_requests+i):
                 video, source, qty = to_int(lines[j])
-                self.endpoints[source].requests.append(Request(number_handled, video, qty))
+                self.endpoints[source].requests.append(Request(number_handled, source, video, qty))
+                self.videos[video].requests.append(Request(number_handled, source, video, qty))
+
